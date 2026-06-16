@@ -1,5 +1,13 @@
 # OTNet Prime
 
+<p align="center">
+  <a href="https://otnet-ott-streaming.vercel.app/">
+    <img src="https://img.shields.io/badge/▶%20View%20Live%20Demo-E50914?style=for-the-badge&logoColor=white" alt="View Live Demo" height="44" />
+  </a>
+</p>
+
+> **Live demo:** [otnet-ott-streaming.vercel.app](https://otnet-ott-streaming.vercel.app/)
+
 A Netflix-style streaming website built with Next.js 14, fully powered by the
 [OTNet](https://otnet.io) catalog, playback, EPG and viewer-auth APIs. Drop in
 your own publisher API key and the entire site — homepage, browse, content
@@ -9,7 +17,7 @@ Live preview style is closer to Netflix / Prime Video: full-bleed hero with
 teaser playback, focus-tile rows, editorial rows, Prime-style EPG grid, and a
 cinematic content detail page.
 
-![Homepage with full-bleed hero and content rows](docs/homepage.png)
+[![Homepage with full-bleed hero and content rows](docs/homepage.png)](https://otnet-ott-streaming.vercel.app/)
 
 ## Features
 
