@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import type { Content } from '@/lib/types';
 
@@ -58,36 +59,61 @@ export function XRayPanel({ content }: { content: Content }) {
 
       <div className="p-4 max-h-[420px] overflow-y-auto">
         {tab === 'cast' && (
-          <ul className="space-y-3">
-            {cast.map((p, i) => (
-              <li key={i} className="flex items-center gap-3">
-                {p.person?.headshot ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={p.person.headshot}
-                    alt=""
-                    className="h-12 w-12 rounded-full object-cover border border-border"
-                  />
-                ) : (
-                  <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center text-text-tertiary text-sm">
-                    {p.person?.name?.[0]?.toUpperCase() ?? '·'}
-                  </div>
-                )}
-                <div className="min-w-0">
-                  <p className="text-sm font-semibold text-text-primary line-clamp-1">
-                    {p.person?.name}
-                  </p>
-                  {p.role && (
-                    <p className="text-xs text-text-tertiary line-clamp-1">{p.role}</p>
+          <ul className="space-y-1">
+            {cast.map((p, i) => {
+              const pid = p.person?._id;
+              const href = pid
+                ? `/people/${pid}?${new URLSearchParams({
+                    name: p.person?.name ?? '',
+                    ...(p.role ? { role: p.role } : {}),
+                    ...(p.person?.title ? { title: p.person.title } : {}),
+                    ...(p.person?.headshot ? { headshot: p.person.headshot } : {}),
+                  }).toString()}`
+                : undefined;
+              const inner = (
+                <>
+                  {p.person?.headshot ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={p.person.headshot}
+                      alt=""
+                      className="h-12 w-12 rounded-full object-cover border border-border shrink-0 transition-transform group-hover:scale-110"
+                    />
+                  ) : (
+                    <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center text-text-tertiary text-sm shrink-0">
+                      {p.person?.name?.[0]?.toUpperCase() ?? '·'}
+                    </div>
                   )}
-                  {p.person?.title && (
-                    <p className="text-[11px] text-text-tertiary line-clamp-1">
-                      {p.person.title}
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold text-text-primary line-clamp-1 group-hover:text-primary transition-colors">
+                      {p.person?.name}
                     </p>
+                    {p.role && (
+                      <p className="text-xs text-text-tertiary line-clamp-1">{p.role}</p>
+                    )}
+                    {p.person?.title && (
+                      <p className="text-[11px] text-text-tertiary line-clamp-1">
+                        {p.person.title}
+                      </p>
+                    )}
+                  </div>
+                </>
+              );
+              return (
+                <li key={i}>
+                  {href ? (
+                    <Link
+                      href={href}
+                      className="group flex items-center gap-3 rounded-md p-2 -m-2 hover:bg-muted/60 transition-colors"
+                    >
+                      {inner}
+                    </Link>
+                  ) : (
+                    <div className="flex items-center gap-3 p-2">{inner}</div>
                   )}
-                </div>
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ul>
         )}
 

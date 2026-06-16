@@ -91,6 +91,20 @@ export const api = {
   categoriesTree: () => apiFetch<Category[]>('/catalog/categories/tree', { revalidate: 300 }),
   search: (q: string) =>
     apiFetch<ContentPage>(`/catalog/content?search=${encodeURIComponent(q)}`, { revalidate: 0 }),
+  person: (id: string) =>
+    apiFetch<{
+      _id?: string;
+      name?: string;
+      title?: string;
+      headshot?: string;
+      bio?: string;
+      birthDate?: string;
+      birthplace?: string;
+    }>(`/catalog/people/${id}`, { revalidate: 300 }),
+  personContent: (id: string) =>
+    apiFetch<ContentPage>(`/catalog/content?personnelId=${id}&limit=48`, {
+      revalidate: 60,
+    }),
   epg: () => apiFetch<EPGResponse>('/catalog/epg', { revalidate: 60 }),
   channelEpg: (id: string, opts: { back?: number; ahead?: number } = {}) => {
     const params = new URLSearchParams({ channelId: id });

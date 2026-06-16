@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Script from 'next/script';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
@@ -94,30 +95,55 @@ export default async function ContentDetail({
                   Cast & Crew
                 </h2>
                 <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-4">
-                  {topCast.map((p, i) => (
-                    <li key={i} className="flex items-center gap-3 min-w-0">
-                      {p.person?.headshot ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={p.person.headshot}
-                          alt=""
-                          className="h-12 w-12 rounded-full object-cover border border-border shrink-0"
-                        />
-                      ) : (
-                        <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center text-text-tertiary text-sm shrink-0">
-                          {p.person?.name?.[0]?.toUpperCase() ?? '·'}
-                        </div>
-                      )}
-                      <div className="min-w-0">
-                        <p className="text-sm font-semibold text-text-primary line-clamp-1">
-                          {p.person?.name}
-                        </p>
-                        {p.role && (
-                          <p className="text-xs text-text-tertiary line-clamp-1">{p.role}</p>
+                  {topCast.map((p, i) => {
+                    const pid = p.person?._id;
+                    const personHref = pid
+                      ? `/people/${pid}?${new URLSearchParams({
+                          name: p.person?.name ?? '',
+                          ...(p.role ? { role: p.role } : {}),
+                          ...(p.person?.title ? { title: p.person.title } : {}),
+                          ...(p.person?.headshot ? { headshot: p.person.headshot } : {}),
+                        }).toString()}`
+                      : undefined;
+                    const inner = (
+                      <>
+                        {p.person?.headshot ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={p.person.headshot}
+                            alt=""
+                            className="h-12 w-12 rounded-full object-cover border border-border shrink-0 transition-transform group-hover:scale-110"
+                          />
+                        ) : (
+                          <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center text-text-tertiary text-sm shrink-0">
+                            {p.person?.name?.[0]?.toUpperCase() ?? '·'}
+                          </div>
                         )}
-                      </div>
-                    </li>
-                  ))}
+                        <div className="min-w-0">
+                          <p className="text-sm font-semibold text-text-primary line-clamp-1 group-hover:text-primary transition-colors">
+                            {p.person?.name}
+                          </p>
+                          {p.role && (
+                            <p className="text-xs text-text-tertiary line-clamp-1">{p.role}</p>
+                          )}
+                        </div>
+                      </>
+                    );
+                    return (
+                      <li key={i}>
+                        {personHref ? (
+                          <Link
+                            href={personHref}
+                            className="group flex items-center gap-3 min-w-0 rounded-lg p-1.5 -m-1.5 hover:bg-muted/50"
+                          >
+                            {inner}
+                          </Link>
+                        ) : (
+                          <div className="flex items-center gap-3 min-w-0">{inner}</div>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               </section>
             )}
