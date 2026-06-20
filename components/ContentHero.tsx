@@ -105,7 +105,7 @@ export function ContentHero({
 
   return (
     <section className="relative">
-      <div className="relative w-full aspect-[21/9] sm:aspect-[16/7] min-h-[460px] overflow-hidden bg-card">
+      <div className="relative w-full h-[80vh] sm:h-auto sm:aspect-[16/7] sm:min-h-[460px] overflow-hidden bg-card">
         {backdrop ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -142,7 +142,7 @@ export function ContentHero({
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background via-background/80 to-transparent" />
 
-        <div className="relative h-full flex items-center">
+        <div className="relative h-full flex items-end sm:items-center pt-20 sm:pt-0">
           <div className="max-w-xl sm:max-w-2xl px-4 sm:px-8 lg:px-12 pb-10 space-y-3 sm:space-y-4">
             {live && (
               <span className="inline-flex items-center gap-2 rounded-full bg-red-600 px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-white">

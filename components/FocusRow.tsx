@@ -152,11 +152,13 @@ export function FocusRow({
   items,
   showRating,
   ratingSystem,
+  viewAllHref,
 }: {
   title: string;
   items: Content[];
   showRating: boolean;
   ratingSystem?: string;
+  viewAllHref?: string;
 }) {
   const visible = items.slice(0, 5);
   const [focusIdx, setFocusIdx] = useState(0);
@@ -205,12 +207,22 @@ export function FocusRow({
           tile="portrait"
           showRating={showRating}
           ratingSystem={ratingSystem}
+          viewAllHref={viewAllHref}
         />
       </div>
 
     <section className="space-y-3 py-6 hidden sm:block">
-      <div className="px-4 sm:px-8 lg:px-12">
+      <div className="px-4 sm:px-8 lg:px-12 flex items-center justify-between gap-3">
         <h2 className="text-lg sm:text-xl font-bold text-text-primary">{title}</h2>
+        {viewAllHref && (
+          <Link
+            href={viewAllHref}
+            className="text-xs sm:text-sm font-semibold text-text-secondary hover:text-text-primary transition-colors"
+          >
+            View all
+            <span aria-hidden className="ml-1">›</span>
+          </Link>
+        )}
       </div>
 
       <div className="px-4 sm:px-8 lg:px-12">

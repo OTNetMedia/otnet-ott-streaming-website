@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { type Content, isFeedable } from '@/lib/types';
 import { LandscapeCard } from './LandscapeCard';
@@ -11,12 +12,14 @@ export function ContentRow({
   tile = 'portrait',
   showRating,
   ratingSystem,
+  viewAllHref,
 }: {
   title: string;
   items: Content[];
   tile?: 'portrait' | 'landscape';
   showRating: boolean;
   ratingSystem?: string;
+  viewAllHref?: string;
 }) {
   const visible = items.filter(isFeedable);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -53,8 +56,18 @@ export function ContentRow({
 
   return (
     <section className="space-y-3 py-4">
-      <div className="px-4 sm:px-8 lg:px-12 flex items-center justify-between">
+      <div className="px-4 sm:px-8 lg:px-12 flex items-center justify-between gap-3">
         <h2 className="text-lg sm:text-xl font-bold text-text-primary">{title}</h2>
+        <div className="flex items-center gap-2">
+          {viewAllHref && (
+            <Link
+              href={viewAllHref}
+              className="text-xs sm:text-sm font-semibold text-text-secondary hover:text-text-primary transition-colors"
+            >
+              View all
+              <span aria-hidden className="ml-1">›</span>
+            </Link>
+          )}
         <div className="hidden md:flex items-center gap-1">
           <button
             type="button"
@@ -78,6 +91,7 @@ export function ContentRow({
               <path d="M9 18l6-6-6-6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
+        </div>
         </div>
       </div>
 
@@ -114,6 +128,25 @@ export function ContentRow({
               </div>
             );
           })}
+
+          {viewAllHref && (
+            <Link
+              href={viewAllHref}
+              aria-label={`View all ${title}`}
+              className={`group relative shrink-0 snap-start flex flex-col items-center justify-center gap-2 rounded-md border border-dashed border-border bg-card/40 text-text-secondary hover:text-text-primary hover:border-primary/60 hover:bg-card transition-colors ${
+                tile === 'portrait'
+                  ? 'w-32 sm:w-36 lg:w-[calc((100%-84px)/8)] aspect-[2/3]'
+                  : 'w-64 sm:w-72 lg:w-[calc((100%-48px)/5)] aspect-video'
+              }`}
+            >
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-current">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M9 18l6-6-6-6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+              <span className="text-sm font-semibold">View all</span>
+            </Link>
+          )}
         </div>
       </div>
     </section>

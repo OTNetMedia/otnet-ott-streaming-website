@@ -23,11 +23,13 @@ export function EditorialRow({
   items,
   showRating,
   ratingSystem,
+  viewAllHref,
 }: {
   title: string;
   items: Content[];
   showRating: boolean;
   ratingSystem?: string;
+  viewAllHref?: string;
 }) {
   const visible = items.slice(0, 4);
   if (visible.length === 0) return null;
@@ -35,11 +37,22 @@ export function EditorialRow({
   return (
     <section className="space-y-3 py-6">
       <div className="px-4 sm:px-8 lg:px-12">
-        <div className="flex items-baseline justify-between">
+        <div className="flex items-baseline justify-between gap-3">
           <h2 className="text-lg sm:text-xl font-bold text-text-primary">{title}</h2>
-          <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-text-tertiary">
-            Editor’s picks
-          </span>
+          <div className="flex items-baseline gap-4">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-text-tertiary">
+              Editor’s picks
+            </span>
+            {viewAllHref && (
+              <Link
+                href={viewAllHref}
+                className="text-xs sm:text-sm font-semibold text-text-secondary hover:text-text-primary transition-colors"
+              >
+                View all
+                <span aria-hidden className="ml-1">›</span>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
 

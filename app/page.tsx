@@ -41,11 +41,13 @@ export default async function HomePage() {
           const items = row.items ?? [];
           const rowTitle = row.genre?.name ?? 'Featured';
           const tile = row.tileType === 'landscape' ? 'landscape' : 'portrait';
+          const viewAllHref = row.genre?._id ? `/browse/${row.genre._id}` : undefined;
           const props = {
             title: rowTitle,
             items,
             showRating: config.ageRatingsEnabled,
             ratingSystem: config.ageRatingSystem,
+            viewAllHref,
           };
 
           if (row.tileStyle === 'focused' && items.length >= 2) {
