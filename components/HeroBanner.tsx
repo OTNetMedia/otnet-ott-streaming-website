@@ -115,7 +115,7 @@ export function HeroBanner({
 
   return (
     <section className="relative">
-      <div className="relative w-full aspect-[21/9] sm:aspect-[16/7] min-h-[420px] overflow-hidden bg-card">
+      <div className="relative w-full aspect-[21/9] sm:aspect-[16/7] min-h-[70vh] sm:min-h-[420px] overflow-hidden bg-card">
         {backdrop ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -160,8 +160,8 @@ export function HeroBanner({
             row that follows feels like it grows out of the hero. */}
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background via-background/80 to-transparent" />
 
-        <div className="relative h-full flex items-center">
-          <div className="max-w-xl sm:max-w-2xl px-4 sm:px-8 lg:px-12 pb-6 space-y-3 sm:space-y-4">
+        <div className="relative h-full flex items-end sm:items-center pt-20 sm:pt-0">
+          <div className="max-w-xl sm:max-w-2xl px-4 sm:px-8 lg:px-12 pb-10 sm:pb-6 space-y-3 sm:space-y-4">
             {live && (
               <span className="inline-flex items-center gap-2 rounded-full bg-red-600 px-3 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-white">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />

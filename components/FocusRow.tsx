@@ -342,8 +342,9 @@ export function FocusRow({
           )}
         </div>
 
-        {/* Metadata strip below the row */}
-        <div className="mt-4 max-w-3xl" key={focused._id}>
+        {/* Metadata strip below the row — desktop only; on touch devices there's
+            no hover-to-focus, so this just adds clutter under the posters. */}
+        <div className="mt-4 max-w-3xl hidden sm:block" key={focused._id}>
           <ul className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-semibold text-text-primary animate-fade-in">
             {genre && <li>{genre}</li>}
             {genre && (year || seriesLabel) && (
