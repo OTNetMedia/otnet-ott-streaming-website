@@ -19,6 +19,7 @@ import {
   teaserUrl,
   titleImageUrl,
 } from '@/lib/types';
+import { ContentRow } from './ContentRow';
 import { RatingBadge } from './RatingBadge';
 
 function awardOf(c: Content): string | undefined {
@@ -193,7 +194,21 @@ export function FocusRow({
     metadataValue(focused, 'New Season') ?? metadataValue(focused, 'Status');
 
   return (
-    <section className="space-y-3 py-6">
+    <>
+      {/* Mobile: fall back to a standard horizontal poster scroller. The focus
+          tile + previews layout depends on hover, which doesn't exist on touch
+          devices, and the tiny preview tiles render unreadably at phone widths. */}
+      <div className="sm:hidden">
+        <ContentRow
+          title={title}
+          items={items}
+          tile="portrait"
+          showRating={showRating}
+          ratingSystem={ratingSystem}
+        />
+      </div>
+
+    <section className="space-y-3 py-6 hidden sm:block">
       <div className="px-4 sm:px-8 lg:px-12">
         <h2 className="text-lg sm:text-xl font-bold text-text-primary">{title}</h2>
       </div>
@@ -381,5 +396,6 @@ export function FocusRow({
         </div>
       </div>
     </section>
+    </>
   );
 }

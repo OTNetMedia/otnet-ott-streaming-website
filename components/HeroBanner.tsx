@@ -115,7 +115,7 @@ export function HeroBanner({
 
   return (
     <section className="relative">
-      <div className="relative w-full aspect-[21/9] sm:aspect-[16/7] min-h-[70vh] sm:min-h-[420px] overflow-hidden bg-card">
+      <div className="relative w-full h-[70vh] sm:h-auto sm:aspect-[16/7] sm:min-h-[420px] overflow-hidden bg-card">
         {backdrop ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img

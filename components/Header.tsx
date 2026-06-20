@@ -71,9 +71,7 @@ export function Header({
             // eslint-disable-next-line @next/next/no-img-element
             <img src={brandLogo} alt={brandName} className="h-7 w-auto" />
           ) : (
-            <span className="text-lg tracking-tight">
-              <span className="text-primary">▶</span> {brandName}
-            </span>
+            <span className="text-lg tracking-tight">{brandName}</span>
           )}
         </Link>
 
